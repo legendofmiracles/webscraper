@@ -4,8 +4,8 @@ const discord = require('discord.js')
 const os = require('os')
 
 fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', function (err, data) {
-  const id = '689718224933486595';
-  const token = 's8KjzvGZFaOVwZL6F1DzJGu8Gxfqg2EZAcd_unAlG7WBZjJ4TPiFYQrCogB0_FczzKmr'
+  const id = '--';
+  const token = '---'
   if (err) throw err;
   var $ = cheerio.load(data);
   var dataFromScrape = $('#myform').find('p').next().first().text().trim();
