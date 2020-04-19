@@ -1,9 +1,10 @@
+/* eslint-disable no-undef */
 const cheerio = require('cheerio');
 const fs = require('fs');
 const discord = require('discord.js')
 const os = require('os')
 require('dotenv').config()
-const diff = require('fast-diff')
+const diff = require('diff')
 fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', function (err, data) {
   if (err) throw err;
   var $ = cheerio.load(data);
@@ -26,10 +27,11 @@ fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', fun
       console.log("The file was saved!");
     });
 
-    var difference = diff(file, dataFromScrape);
-    console.log(difference)
-
-    new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/').catch(console.error);
+    var difference = diff.diffChars(file.toString(), dataFromScrape.toString());
+    console.log(difference[0].value)
+    const id = process.env.id;
+    const token = process.env.token
+    new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/ Es hat kamen dazu:' + difference[0].value).catch(console.error);
   } else {
     fs.writeFile(os.homedir() + '/scrape/scrape', dataFromScrape, function (err) {
       if (err) {
