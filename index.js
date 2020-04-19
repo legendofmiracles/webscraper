@@ -31,6 +31,8 @@ fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', fun
     console.log(difference[0].value)
     const id = process.env.id;
     const token = process.env.token
+    console.log(id)
+    console.log(token)
     new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/ Es hat kamen dazu:' + difference[0].value).catch(console.error);
   } else {
     fs.writeFile(os.homedir() + '/scrape/scrape', dataFromScrape, function (err) {
