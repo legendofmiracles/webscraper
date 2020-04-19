@@ -2,15 +2,12 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const discord = require('discord.js')
 const os = require('os')
-require('dotenv').load();
-
+require('dotenv').config()
 fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', function (err, data) {
-  // const id = '--';
-  // const token = '---'
   if (err) throw err;
   var $ = cheerio.load(data);
   console.log(data)
-  var dataFromScrape = $('#myform').find('p').next().first().text().trim();
+  var dataFromScrape = $('#myform').find('p').next().next().first().text().trim();
   
   console.log(dataFromScrape);
   
