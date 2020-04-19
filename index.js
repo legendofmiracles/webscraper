@@ -3,7 +3,14 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const discord = require('discord.js')
 const os = require('os')
-require('dotenv').config()
+const dotenv = require('dotenv')
+const result = dotenv.config()
+ 
+if (result.error) {
+  throw result.error
+}
+ 
+console.log(result.parsed)
 const diff = require('diff')
 fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', function (err, data) {
   if (err) throw err;
@@ -33,7 +40,7 @@ fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', fun
     const token = process.env.token
     console.log(id)
     console.log(token)
-    new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/ Es hat kamen dazu:' + difference[0].value).catch(console.error);
+    new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/ Es hat kamen dazu: ' + difference[0].value).catch(console.error);
   } else {
     fs.writeFile(os.homedir() + '/scrape/scrape', dataFromScrape, function (err) {
       if (err) {
