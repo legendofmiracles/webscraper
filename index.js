@@ -6,10 +6,10 @@ require('dotenv').config()
 fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', function (err, data) {
   if (err) throw err;
   var $ = cheerio.load(data);
-  console.log(data)
-  var dataFromScrape = $('#myform').find('p').next().next().first().text().trim();
   
-  console.log(dataFromScrape);
+  var dataFromScrape = $('#myform').find('p').next().next().next().text().trim();
+  
+  console.log(dataFromScrape + "\n");
   
   var file = fs.readFileSync(os.homedir()+'/scrape/scrape', function (err) {
     if (err) throw err
@@ -18,13 +18,13 @@ fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', fun
   console.log(file.toString().trim());
   if (file != dataFromScrape) {
     console.log("true")
-    new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/').catch(console.error);
     fs.writeFile(os.homedir()+ '/scrape/scrape', dataFromScrape, function (err) {
       if (err) {
         return console.log(err);
       }
       console.log("The file was saved!");
     });
+    new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/').catch(console.error);
   } else {
     fs.writeFile(os.homedir() + '/scrape/scrape', dataFromScrape, function (err) {
       if (err) {
