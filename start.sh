@@ -2,7 +2,7 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 cd $SCRIPTPATH
-curl -s -d "klassen=08c" http://kkst.s.schule-bw.de/homeoffice/kontakt.htm > out.html
+curl -kd "klassen=08c" https://kkst.s.schule-bw.de/homeoffice/ > out.html
 node index.js
-wait 20
+sleep 20
 killall node
