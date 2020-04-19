@@ -2,10 +2,11 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const discord = require('discord.js')
 const os = require('os')
+require('dotenv').load();
 
 fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', function (err, data) {
-  const id = '--';
-  const token = '---'
+  // const id = '--';
+  // const token = '---'
   if (err) throw err;
   var $ = cheerio.load(data);
   console.log(data)
