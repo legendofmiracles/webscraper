@@ -24,7 +24,7 @@ fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', fun
     if (err) throw err
   });
 
-  console.log(file.toString().trim());
+  console.log(file.toString());
   if (file != dataFromScrape) {
     console.log("true")
     fs.writeFileSync(os.homedir()+ '/scrape/scrape', dataFromScrape, function (err) {
@@ -35,12 +35,11 @@ fs.readFile(os.homedir()+ '/programming/nodejs/webscraper/out.html', 'utf8', fun
     });
 
     var difference = diff.diffChars(file.toString(), dataFromScrape.toString());
-    console.log(difference[0].value)
+    console.log(difference[0].value.replace('_', "\_").normalize())
     const id = process.env.id;
     const token = process.env.token
-    console.log(id)
-    console.log(token)
-    new discord.WebhookClient(id, token).send('Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/ Es hat kamen dazu: ' + difference[0].value).catch(console.error);
+    
+    new discord.WebhookClient(id, token).send(`Neue Hausaufgaben :( Link: http://kkst.s.schule-bw.de/homeoffice/ Es hat kamen dazu: ${difference[0].value.normalize()}` ).catch(console.error);
   } else {
     fs.writeFile(os.homedir() + '/scrape/scrape', dataFromScrape, function (err) {
       if (err) {
